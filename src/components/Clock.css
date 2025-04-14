@@ -1,0 +1,89 @@
+.clock-container {
+  display: flex;
+  flex-shrink: 0; /* не сжимать */
+  flex-direction: column;
+  align-items: center;
+}
+
+.clock-title {
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  width: 100px;
+  margin-bottom: 8px;
+}
+
+.remove-btn {
+  background: none;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+}
+
+.clock {
+  padding: 10px;
+  text-align: center;
+  position: relative;
+  border: 1px solid #ccc;
+}
+
+.clocks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+
+
+.clock-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.clock-header button {
+  color: rgb(208, 9, 9);
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clock-header button:hover {
+  background-color: #9b9494;
+}
+
+.hand {
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  transform-origin: bottom center;
+  background-color: black;
+}
+
+.hand.hour {
+  height: 20px;
+  width: 3px;
+}
+
+.hand.minute {
+  height: 28px;
+  width: 2px;
+}
+
+.hand.second {
+  height: 36px;
+  width: 1px;
+  background-color: red;
+}
