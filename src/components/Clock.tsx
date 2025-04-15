@@ -11,11 +11,11 @@
  * Удаляется по кнопке «×».
 */
 import { useMemo, memo } from 'react';
-import { ClocksProps } from '../types/types';
+import { ClockProps } from '../types/types';
 import { useLocalTime } from '../utils/useLocalTime';
 import './Clock.css';
 
-const Clock = ({ data, currentTime, onRemove }: ClocksProps) => {
+const Clock = ({ data, currentTime, onRemove }: ClockProps) => {
   // Получаем текущее время в локальной временной зоне
   const localTime = useLocalTime(data.timezone, currentTime);
 
