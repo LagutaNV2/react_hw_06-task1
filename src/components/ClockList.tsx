@@ -1,7 +1,9 @@
+// src/components/ClockList.tsx
+import { memo } from 'react';
 import Clock from "./Clock";
-import { ClocksProps } from "../types/types";
+import { ClockListProps } from "../types/types";
 
-const ClockList = ({ clocks, currentTime, onRemove }: ClocksProps) => {
+const ClockList = ({ clocks, currentTime, onRemove }: ClockListProps) => {
   return (
     <div className="clocks">
       {clocks.map((clock) => (
@@ -11,4 +13,4 @@ const ClockList = ({ clocks, currentTime, onRemove }: ClocksProps) => {
   );
 };
 
-export default ClockList;
+export default memo(ClockList);

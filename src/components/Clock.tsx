@@ -1,25 +1,29 @@
 /**
-/* Принимает data и текущее общее время.
-/* data — объект с id, title и timezone (число).
-/* currentTime — текущее общее время в миллисекундах с 1 января 1970 года.
-/* Вычисляет точное локальное время в нужной временной зоне.
-/* Отображает часы через SVG и корректно поворачивает стрелки.
-/* Удаляется по кнопке «×».
+ * src/components/Clock.tsx
+ * использует useMemo для оптимизации производительности
+ * использует memo для оптимизации рендеринга функциональных компонентов
+ *
+ * Принимает data и текущее общее время.
+ * data — объект с id, title и timezone (число).
+ * currentTime — текущее общее время в миллисекундах с 1 января 1970 года.
+ * Вычисляет точное локальное время в нужной временной зоне.
+ * Отображает часы через SVG и корректно поворачивает стрелки.
+ * Удаляется по кнопке «×».
 */
-
-import { ClocksProps } from "../types/types";
+import { useMemo, memo } from 'react';
+import { ClocksProps } from '../types/types';
+import { useLocalTime } from '../utils/useLocalTime';
 import './Clock.css';
 
 const Clock = ({ data, currentTime, onRemove }: ClocksProps) => {
-  const getClockTime = () => {
-    // Получаем текущее время в локальной временной зоне
-    const utc = currentTime.getTime() + currentTime.getTimezoneOffset() * 60000;
-    return new Date(utc + data.timezone * 3600000);
-  };
+  // Получаем текущее время в локальной временной зоне
+  const localTime = useLocalTime(data.timezone, currentTime);
 
   // Получаем текущее время для данного часового пояса
   // и извлекаем часы, минуты и секунды
-  const localTime = getClockTime();
+  // Используем useMemo для оптимизации производительности
+  // и предотвращения лишних вычислений при каждом рендере
+
   const hours = localTime.getHours();
   const minutes = localTime.getMinutes();
   const seconds = localTime.getSeconds();
@@ -28,9 +32,9 @@ const Clock = ({ data, currentTime, onRemove }: ClocksProps) => {
   // Часовая стрелка: 30 градусов за час + 0.5 градуса за минуту
   // Минутная стрелка: 6 градусов за минуту
   // Секундная стрелка: 6 градусов за секунду
-  const hourAngle = (hours % 12) * 30 + minutes * 0.5;
-  const minuteAngle = minutes * 6;
-  const secondAngle = seconds * 6;
+  const hourAngle = useMemo(() => (hours % 12) * 30 + minutes * 0.5, [hours, minutes]);
+  const minuteAngle = useMemo(() => minutes * 6, [minutes]);
+  const secondAngle = useMemo(() => seconds * 6, [seconds]);
 
   return (
     <div className="clock">
@@ -77,4 +81,4 @@ const Clock = ({ data, currentTime, onRemove }: ClocksProps) => {
   );
 };
 
-export default Clock;
+export default memo(Clock);

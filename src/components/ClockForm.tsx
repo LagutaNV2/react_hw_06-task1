@@ -1,3 +1,7 @@
+// src/components/ClockForm.tsx
+// Компонент формы для добавления новых часов
+// Импортируем необходимые библиотеки и типы
+
 import React, { useState } from 'react';
 
 import { ClockData } from "../types/types";
@@ -17,7 +21,12 @@ function ClockForm({ onAddClock }: ClockFormProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!title || isNaN(Number(timezone))) return;
+    if (
+      !title ||
+      isNaN(Number(timezone)) ||
+      Number(timezone) < -12 ||
+      Number(timezone) > 14
+    ) return;
 
     onAddClock({ id: uuidv4(), title, timezone: Number(timezone) });
 

@@ -1,20 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import ClockForm from './components/ClockForm';
-import Clock from './components/Clock';
-import ClockList from "./components/ClockList";
+// src/App.tsx
+
+import { useEffect, useState } from 'react';
 import { ClockData } from "./types/types";
+import { useCurrentTime } from "./utils/useCurrTime";
+import ClockForm from './components/ClockForm';
+import ClockList from "./components/ClockList";
 import './App.css';
 
 export const App = () => {
   const [clocks, setClocks] = useState<ClockData[]>([]);
-  const [currentTime, setCurrentTime] = useState(new Date());
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 1000);
-    return () => clearInterval(timer);
-  }, []);
+  const currentTime = useCurrentTime();
 
   const addClock = (clock: ClockData) => {
     setClocks(prev => [...prev, clock]);
